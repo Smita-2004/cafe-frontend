@@ -22,6 +22,7 @@ function App() {
          <Link to="/order">MyOrder</Link>-
           <Link to="/admin">Admin</Link>-
            <Link to="/login">Login</Link>
+          
         <Routes>
           <Route index element={<Product />} />
           <Route path="register" element={<Register />} />

@@ -6,13 +6,18 @@ import axios from "axios";
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState();
+  const [limit, setLimit] = useState(3);
+  const [page, setPage] = useState(1);
+  const [searchVal, setSearchVal] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
 
   const API_URL = import.meta.env.VITE_API_URL;
   const fetchUsers = async () => {
     try {
-      const url = `${API_URL}/api/users/`;
+      const url = `${API_URL}/api/users/?page=${page}&limit=${limit}&search=${searchVal}`;
       const result = await axios.get(url);
-      setUsers(result.data);
+      setUsers(result.data.users);
+      setTotalPages(result.data.total);
     } catch (err) {
       console.log(err);
       setError("Something went wrong");
@@ -21,7 +26,7 @@ export default function Users() {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [page]);
 
   const handleDelete = async (id) => {
     try {
@@ -47,7 +52,7 @@ export default function Users() {
                 <th>Last Name</th>
                 <th>Email address</th>
                 <th>Role</th>
-         
+
                 <th>Action</th>
               </tr>
             </thead>
@@ -69,6 +74,11 @@ export default function Users() {
               ))}
             <tfoot></tfoot>
           </table>
+        </div>
+        <div>
+          <button onClick={()=>setPage(page-1)} disabled={page===1}>Previous</button>
+          Page {page} of {totalPages}
+          <button disabled={page===totalPages} onClick={()=>setPage(page+1)}>Next</button>
         </div>
       </div>
     </div>
