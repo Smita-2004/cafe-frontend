@@ -13,7 +13,7 @@ import Profile from "./components/Profile";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Products from "./components/Products";
-import Home from "./components/Home";
+
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 export const AppContext = createContext();
